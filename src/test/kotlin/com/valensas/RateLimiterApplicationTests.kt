@@ -10,6 +10,7 @@ import org.springframework.boot.test.context.SpringBootTest.WebEnvironment
 import org.springframework.boot.test.web.client.TestRestTemplate
 import org.springframework.http.HttpMethod
 import org.springframework.http.HttpStatus
+import java.lang.Thread.sleep
 
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
 class RateLimiterApplicationTests {
@@ -21,6 +22,7 @@ class RateLimiterApplicationTests {
     @Test
     fun contextLoads() {
         val limit = 5
+        var intTime = 0
         (0..10).forEach {
             val response = restTemplate.exchange("/test", HttpMethod.GET, null, String::class.java)
             logger.info("Request: {} - Status: {}", it, response.statusCode)
@@ -34,7 +36,16 @@ class RateLimiterApplicationTests {
             } else {
                 val remainingTime = response.headers["X-Rate-Limit-Retry-After-Seconds"]?.firstOrNull()
                 logger.info("Remaining time: {}", remainingTime)
+                if (remainingTime != null) {
+                    intTime = remainingTime.toInt()
+                }
             }
         }
+        var longTime = (intTime*1000).toLong() + 1000
+        logger.info("Sleep {} seconds", intTime + 1)
+        sleep(longTime)
+        val response = restTemplate.exchange("/test", HttpMethod.GET, null, String::class.java)
+        logger.info("Request after sleep - Status: {}",  response.statusCode)
+        assertEquals(HttpStatus.OK, response.statusCode)
     }
 }
