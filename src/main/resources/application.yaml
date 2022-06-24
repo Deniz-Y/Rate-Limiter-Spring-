@@ -1,2 +1,29 @@
 server:
   port: 8085
+
+bucket4j:
+  enabled: true
+  filters:
+  - cache-name: buckets
+    url: .*
+    http-response-headers:
+      hello: hi
+    metrics:
+      tags:
+        - key: ip
+          expression: getRemoteAddr()
+    rate-limits:
+    - bandwidths:
+      - capacity: 5
+        time: 2
+        unit: minutes
+
+management:
+  endpoints.web.exposure.include: '*'
+
+spring:
+  cache:
+    type: jcache
+    jcache:
+      provider: com.hazelcast.cache.impl.HazelcastServerCachingProvider
+      config: classpath:hazelcast.xml
