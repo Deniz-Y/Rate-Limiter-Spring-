@@ -5,7 +5,7 @@ bucket4j:
   enabled: true
   filters:
   - cache-name: buckets
-    url: .*
+    url: /test
     http-response-headers:
       hello: hi
     metrics:
@@ -17,7 +17,17 @@ bucket4j:
       - capacity: 5
         time: 2
         unit: minutes
-
+  - cache-name: buckets
+    url: /test2
+    metrics:
+      tags:
+        - key: URL
+          expression: getRequestURI()
+    rate-limits:
+      - bandwidths:
+          - capacity: 7
+            time: 1
+            unit: minutes
 management:
   endpoints.web.exposure.include: '*'
 

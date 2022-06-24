@@ -48,4 +48,9 @@ class RateLimiterApplicationTests {
         logger.info("Request after sleep - Status: {}",  response.statusCode)
         assertEquals(HttpStatus.OK, response.statusCode)
     }
+
+    @Test
+    fun headerTest(){
+
+    }
 }
