@@ -6,10 +6,13 @@ bucket4j:
   filters:
   - cache-name: buckets
     url: /test
+
     http-response-headers:
       hello: hi
     metrics:
       tags:
+        - key: url
+          expression: getRequestURI()
         - key: ip
           expression: getRemoteAddr()
     rate-limits:
@@ -17,11 +20,13 @@ bucket4j:
       - capacity: 5
         time: 2
         unit: minutes
+      expression:
+        - getRemoteAddr()
   - cache-name: buckets
     url: /test2
     metrics:
       tags:
-        - key: URL
+        - key: url
           expression: getRequestURI()
     rate-limits:
       - bandwidths:
