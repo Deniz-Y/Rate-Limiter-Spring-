@@ -20,8 +20,7 @@ bucket4j:
       - capacity: 5
         time: 2
         unit: minutes
-      expression:
-        - getRemoteAddr()
+      expression: "getHeader('X-FORWARDED-FOR')"
   - cache-name: buckets
     url: /test2
     metrics:
