@@ -20,7 +20,7 @@ repositories {
 extra["springCloudVersion"] = "2021.0.3"
 
 dependencies {
-	implementation("org.springframework.boot:spring-boot-starter-web")
+	implementation("org.springframework.boot:spring-boot-starter-webflux")
 	implementation("com.giffing.bucket4j.spring.boot.starter:bucket4j-spring-boot-starter:0.6.1")
 	implementation("org.springframework.boot:spring-boot-starter-cache")
 	implementation("org.springframework.boot:spring-boot-starter-actuator")
@@ -29,6 +29,9 @@ dependencies {
 	implementation("com.hazelcast.jet:hazelcast-jet:4.5.3")
 	runtimeOnly("io.micrometer:micrometer-registry-prometheus")
 
+	// Spring Cloud
+	implementation("org.springframework.cloud:spring-cloud-starter-gateway")
+
 	implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
 	implementation("io.projectreactor.kotlin:reactor-kotlin-extensions")
 	implementation("org.jetbrains.kotlin:kotlin-reflect")
@@ -36,6 +39,7 @@ dependencies {
 	implementation("org.jetbrains.kotlinx:kotlinx-coroutines-reactor")
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
 	testImplementation("io.projectreactor:reactor-test")
+
 }
 
 dependencyManagement {

@@ -41,3 +41,16 @@ spring:
     jcache:
       provider: com.hazelcast.cache.impl.HazelcastServerCachingProvider
       config: classpath:hazelcast.xml
+
+  cloud:
+    gateway:
+      routes:
+        - id: path_route
+          uri: https://example.org
+
+
+
+
+
+
+
