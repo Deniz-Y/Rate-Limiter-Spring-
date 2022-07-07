@@ -5,6 +5,7 @@ bucket4j:
   enabled: true
   filters:
   - cache-name: buckets
+    filter-method: gateway
     url: /test
 
     http-response-headers:
@@ -47,6 +48,15 @@ spring:
       routes:
         - id: path_route
           uri: https://example.org
+          predicates:
+            - Path=/test/**
+
+
+
+
+
+
+
 
 
 
