@@ -1,2 +1,17 @@
 server:
   port: 8085
+
+spring:
+  cloud:
+    gateway:
+      routes:
+        - id: test
+          uri: https://httpbin.org
+          predicates:
+            - Path=/get
+
+
+logging:
+  level:
+    org.springframework.cloud.gateway: DEBUG
+    reactor.netty.http.client: DEBUG
